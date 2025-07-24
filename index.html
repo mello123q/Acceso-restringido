@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Acceso restringido</title>
+  <style>
+    body {
+      background-color: #0e0e0e;
+      color: #e0e0e0;
+      font-family: monospace;
+      text-align: center;
+      padding-top: 100px;
+    }
+    input[type="password"] {
+      background-color: #222;
+      border: 1px solid #555;
+      color: #e0e0e0;
+      padding: 10px;
+      font-size: 16px;
+      width: 300px;
+    }
+    button {
+      margin-top: 20px;
+      padding: 10px 20px;
+      font-size: 16px;
+      background-color: #111;
+      color: #e0e0e0;
+      border: 1px solid #444;
+      cursor: pointer;
+    }
+    #mensaje {
+      display: none;
+      margin-top: 50px;
+      font-size: 18px;
+      color: #00ff88;
+    }
+  </style>
+</head>
+<body>
+  <h1>Acceso restringido</h1>
+  <p>Introduce tu contraseña para verificar tu existencia.</p>
+  <input type="password" id="clave" placeholder="Clave">
+  <br>
+  <button onclick="verificar()">Ingresar</button>
+  <div id="mensaje">...</div>
+
+  <script>
+    function verificar() {
+      // Verifica si ya se ha hecho un intento en este dispositivo
+      if (localStorage.getItem("intentoRealizado") === "true") {
+        alert("Ya has hecho tu intento. Este portal solo se abre una vez.");
+        return;
+      }
+
+      let clave = document.getElementById("clave").value;
+      if (clave === "VOLUNTADDELOS100") {
+        document.getElementById("mensaje").style.display = "block";
+        document.getElementById("mensaje").innerText = "(Aquí va tu mensaje secreto)";
+      } else {
+        alert("Acceso denegado.");
+      }
+
+      // Marca el intento como realizado
+      localStorage.setItem("intentoRealizado", "true");
+    }
+  </script>
+</body>
+</html>
