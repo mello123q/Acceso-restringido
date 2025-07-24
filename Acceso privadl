@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Acceso restringido</title>
+  <style>
+    body {
+      background-color: #0e0e0e;
+      color: #e0e0e0;
+      font-family: monospace;
+      text-align: center;
+      padding-top: 80px;
+    }
+    input[type="password"] {
+      background-color: #222;
+      border: 1px solid #555;
+      color: #e0e0e0;
+      padding: 10px;
+      font-size: 16px;
+      width: 280px;
+    }
+    button {
+      margin-top: 20px;
+      padding: 10px 20px;
+      font-size: 16px;
+      background-color: #111;
+      color: #e0e0e0;
+      border: 1px solid #444;
+      cursor: pointer;
+    }
+    #mensaje {
+      display: none;
+      margin-top: 40px;
+      font-size: 18px;
+      color: #00ff88;
+      padding: 10px;
+    }
+    blockquote {
+      font-style: italic;
+      margin-top: 20px;
+    }
+    .autor {
+      font-size: 14px;
+      color: #888;
+      margin-top: 5px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Acceso restringido</h1>
+  <p>Introduce la contraseña para continuar:</p>
+  <input type="password" id="clave" placeholder="Clave secreta">
+  <br>
+  <button onclick="verificar()">Ingresar</button>
+  <div id="mensaje"></div>
+
+  <script>
+    function verificar() {
+      const clave = document.getElementById("clave").value;
+
+      if (localStorage.getItem("intentoRealizado") === "true") {
+        alert("Ya has hecho tu intento. Este portal sólo se abre una vez.");
+        return;
+      }
+
+      if (clave === "VOLUNTADDELOS100") {
+        document.getElementById("mensaje").style.display = "block";
+        document.getElementById("mensaje").innerHTML = `
+          <p>Has desbloqueado la primera revelación:</p>
+          <blockquote>
+            “No luches contra el destino.<br>
+            El alma que conoce su origen<br>
+            no teme al abismo ni a la luz.”
+          </blockquote>
+          <div class="autor">Poeta griego, siglo V a.C.</div>
+          <p>Encuentra otro texto suyo.<br>La siguiente pista vive entre sus odas.</p>
+        `;
+      } else {
+        alert("Acceso denegado.");
+      }
+
+      localStorage.setItem("intentoRealizado", "true");
+    }
+  </script>
+</body>
+</html>
